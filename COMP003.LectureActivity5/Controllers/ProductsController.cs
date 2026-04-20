@@ -55,5 +55,31 @@ namespace COMP003.LectureActivity5.Controllers
             return NoContent();
         }
 
+        [HttpDelete("{id}")]
+
+        public IActionResult DeleteProduct(int id)
+        {
+            var product = ProductStore.Products.FirstOrDefault(p => p.Id == id);
+
+            if (product is null)
+                return NotFound();
+
+            ProductStore.Products.Remove(product);
+
+            return NoContent();
+        }
+
+        [HttpGet("filter")]
+
+        public ActionResult<List<Product>> FilterProducts(decimal price)
+        {
+            var  = ProductStore.Products
+                .Where(p => p.Price <= price)
+                .OrderBy(p => p.Price)
+                .ToList();
+
+            return Ok(filteredProducts);
+        }
+
     }
 }
