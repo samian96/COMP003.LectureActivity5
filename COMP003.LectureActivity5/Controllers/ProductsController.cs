@@ -81,5 +81,17 @@ namespace COMP003.LectureActivity5.Controllers
             return Ok(filteredProducts);
         }
 
+        [HttpGet("names")]
+
+        public ActionResult<List<string>> GetProductName()
+        {
+            var productNames = ProductStore.Products
+                .OrderBy(p => p.Name)
+                .Select(p => p.Name)
+                .ToList();
+
+            return Ok(productNames);
+        }
+
     }
 }
