@@ -73,7 +73,7 @@ namespace COMP003.LectureActivity5.Controllers
 
         public ActionResult<List<Product>> FilterProducts(decimal price)
         {
-            var  = ProductStore.Products
+            var filteredProducts  = ProductStore.Products
                 .Where(p => p.Price <= price)
                 .OrderBy(p => p.Price)
                 .ToList();
