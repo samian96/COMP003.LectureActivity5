@@ -28,5 +28,32 @@ namespace COMP003.LectureActivity5.Controllers
 
             return Ok(product);
         }
+
+        [HttpPost]
+
+        public ActionResult<Product> CreateProduct(Product product)
+        {
+            product.Id = ProductStore.Products.Max(p => p.Id) + 1;
+
+            ProductStore.Products.Add(product);
+
+            return CreatedAtAction(nameof(GetProduct), new { id = product.Id }, product);
+        }
+
+        [HttpPut("{id}")]
+
+        public IActionResult UpdateProduct(int id, Product updatedProduct)
+        {
+            var existingProduct = ProductStore.Products.FirstOrDefault(p => p.Id == id);
+
+            if (existingProduct is null)
+                return NotFound();
+
+            existingProduct.Name = updatedProduct.Name;
+            existingProduct.Price = updatedProduct.Price;
+
+            return NoContent();
+        }
+
     }
 }
